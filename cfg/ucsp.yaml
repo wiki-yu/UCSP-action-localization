@@ -1,5 +1,5 @@
 TRAIN:
-  RESUME_PATH: "backup/ucsp/yowo_ucsp_best.pth"
+  RESUME_PATH: "backup/ucsp/yowo_ucsp_16f_best.pth"
   DATASET: ucsp  
   BATCH_SIZE: 2
   TOTAL_BATCH_SIZE: 128
@@ -29,7 +29,7 @@ DATA:
   MEAN: [0.4345, 0.4051, 0.3775]
   STD: [0.2768, 0.2713, 0.2737]
 MODEL:
-  NUM_CLASSES: 2
+  NUM_CLASSES: 3
   BACKBONE_3D: resnext101
   BACKBONE_2D: darknet
 WEIGHTS:
@@ -43,6 +43,6 @@ LISTDATA:
   TEST_FILE: "datasets/ucsp/testlist.txt"
   TEST_VIDEO_FILE: "datasets/ucsp/testlist_video.txt"
   MAX_OBJS: 6
-  CLASS_NAMES: ["drawer", "clean_tray"]
+  CLASS_NAMES: ["drawer", "clean_tray", "count_pills"]
 BACKUP_DIR: "backup/ucsp"
 RNG_SEED: 1

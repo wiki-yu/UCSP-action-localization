@@ -618,10 +618,14 @@ def read_truths_args(lab_path, min_box_scale):
     # print("truths2: ", truths)
     new_truths = []
     for i in range(truths.shape[0]):
-        cx = (truths[i][1] + truths[i][3]) / (2 * 320)
-        cy = (truths[i][2] + truths[i][4]) / (2 * 240)
-        imgw = (truths[i][3] - truths[i][1]) / 320
-        imgh = (truths[i][4] - truths[i][2]) / 240
+        # cx = (truths[i][1] + truths[i][3]) / (2 * 320)
+        # cy = (truths[i][2] + truths[i][4]) / (2 * 240)
+        # imgw = (truths[i][3] - truths[i][1]) / 320
+        # imgh = (truths[i][4] - truths[i][2]) / 240
+        cx = truths[i][1]
+        cy = truths[i][2]
+        imgw = truths[i][3]
+        imgh = truths[i][4]
         truths[i][0] = truths[i][0] - 1
         truths[i][1] = cx
         truths[i][2] = cy

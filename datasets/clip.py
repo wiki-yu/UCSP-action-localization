@@ -98,10 +98,14 @@ def fill_truth_detection(labpath, w, h, flip, dx, dy, sx, sy):
         bs = np.reshape(bs, (-1, 5))
 
         for i in range(bs.shape[0]):
-            cx = (bs[i][1] + bs[i][3]) / (2 * 320)
-            cy = (bs[i][2] + bs[i][4]) / (2 * 240)
-            imgw = (bs[i][3] - bs[i][1]) / 320
-            imgh = (bs[i][4] - bs[i][2]) / 240
+            # cx = (bs[i][1] + bs[i][3]) / (2 * 320)
+            # cy = (bs[i][2] + bs[i][4]) / (2 * 240)
+            # imgw = (bs[i][3] - bs[i][1]) / 320
+            # imgh = (bs[i][4] - bs[i][2]) / 240
+            cx = bs[i][1]
+            cy = bs[i][2]
+            imgw = bs[i][3]
+            imgh = bs[i][4]
             bs[i][0] = bs[i][0] - 1
             bs[i][1] = cx
             bs[i][2] = cy
@@ -212,14 +216,16 @@ def load_data_detection(base_path, imgpath, train, train_dur, sampling_rate, sha
 
 
 def load_data_detection_ucsp(base_path, imgpath, train, train_dur, sampling_rate, shape, dataset_use='ucsp', jitter=0.2, hue=0.1, saturation=1.5, exposure=1.5):
+
     # clip loading and  data augmentation
     im_split = imgpath.split('/') # get img path and label path (trainlist.txt testlist.txt)
     # print("\nim_split: ", im_split) # 'Basketball', 'v_Basketball_g01_c01', '00019.txt'
     num_parts = len(im_split)
     im_ind = int(im_split[num_parts-1][:-4]) # frame index in the video
+    im_ind = int(im_split[num_parts-1][0:5])
     # print("\nim_ind: ", im_ind)
-    # labpath = os.path.join(base_path, 'labels', im_split[0], im_split[1] ,'{:05d}.txt'.format(im_ind)) # UCSP
-    labpath = os.path.join(base_path, 'labels', im_split[0],'{:d}.txt'.format(im_ind))
+    labpath = os.path.join(base_path, 'labels', im_split[0], '{:05d}.txt'.format(im_ind)) 
+    # labpath = os.path.join(base_path, 'labels', im_split[0],'{:d}.txt'.format(im_ind)) # UCSP
     # print("\n &&&&&&&&&$$$$$$$$$$$$$$$$$$$$$ labpath: ", labpath)
     img_folder = os.path.join(base_path, 'rgb-images', im_split[0])
     # print("\n img_folder: ", img_folder)
@@ -244,7 +250,8 @@ def load_data_detection_ucsp(base_path, imgpath, train, train_dur, sampling_rate
         # print("im_ind: {}, i: {}, i_temp: {}".format(im_ind, i, i_temp)) # if index=0, labeltxt=9, 1111111 + 123456789
 
         if dataset_use == 'ucsp':
-            path_tmp = os.path.join(base_path, 'rgb-images', im_split[0], '{}.jpg'.format(i_temp))
+            # path_tmp = os.path.join(base_path, 'rgb-images', im_split[0], '{}.jpg'.format(i_temp))
+            path_tmp = os.path.join(base_path, 'rgb-images', im_split[0], '{:05d}.jpg'.format(i_temp))
             # print("&&&&&&&&&&&&&&&&& path_temp: {}, i_temp: {}".format(path_tmp, i_temp))
        
         clip.append(Image.open(path_tmp).convert('RGB'))

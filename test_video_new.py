@@ -55,8 +55,8 @@ anchors           = [float(i) for i in cfg.SOLVER.ANCHORS]
 num_anchors       = cfg.SOLVER.NUM_ANCHORS
 
 nms_thresh    = 0.1 # orginal 0.5
-# conf_thresh_valid = 0.005
-conf_thresh_valid = 0.2 # For more stable results, this threshold should be increased!
+conf_thresh_valid = 0.15
+# conf_thresh_valid = 0.2 # For more stable results, this threshold should be increased!
 model.eval()
 
 print("num_classes: {}".format(num_classes))
@@ -68,7 +68,7 @@ print("***************************************************")
 
 ####### Data preparation and inference 
 # ---------------------------------------------------------------
-video_path = 'datasets/biking.mp4'
+video_path = 'datasets/test1.avi'
 cap = cv2.VideoCapture(video_path)
 cnt = 1
 count = 1
